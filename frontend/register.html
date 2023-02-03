@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <section class="h-screen">
+  <div class="px-6 h-full text-gray-800">
+    <div
+      class="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6"
+    >
+      <div
+        class="hidden md:flex grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0"
+      >
+        <img
+          src="./telling-tale-concept-illustration_114360-7355.png"
+          class="w-full"
+          alt="Sample image"
+        />
+      </div>
+      <div class="  xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
+        <form class="bg-[#ececec] p-8 rounded-[40px]">
+            <h1 class="text-[#0048a4] text-center text-[42px] mb-8">REGISTER</h1>
+          <!-- Full Name -->
+          <div class="mb-6">
+            
+            <input
+              type="text"
+              class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-[11px] transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              id="name"
+              placeholder="Enter Your Full Name" 
+            />
+          </div>
+          
+          <!-- Email input -->
+          <div class="mb-6">
+            <input
+              type="email"
+              class="rounded-[11px] form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300  transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              id="email"
+              placeholder="Enter your Organization Email address" 
+            />
+          </div>
+
+          <!-- Password input -->
+          <div class="mb-6">
+            <input
+              type="password"
+              class="rounded-[11px] form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              id="password"
+              placeholder="Enter your Password" 
+            />
+          </div>
+          <!-- Phone Number -->
+          <div class="mb-6">
+            <input
+              type="number"
+              class="rounded-[11px] form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300  transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              id="pnumber"
+              placeholder="Enter Your Phone Number" 
+            />
+          </div>
+         
+          <div class="text-center lg:text-left">
+            <button
+              type="button"
+              class="w-full rounded-[11px] inline-block px-7 py-3 bg-[#0048a4] text-white font-medium text-xl leading-snug uppercase  shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            >
+              Login
+            </button>
+           
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</body>
+</html>
