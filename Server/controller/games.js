@@ -1,5 +1,5 @@
 //create game Logic
-
+const Quiz = require('../models/quiz');
 //Create Dino
 exports.createDino=async(req,res)=>{
     const {topic,question,answer} = req.body;
@@ -42,6 +42,7 @@ exports.createSpace=async(req,res)=>{
     const {topic,question,option,answer} = req.body;
     let gcode = Math.floor(100000 + Math.random() * 900000).toString();
     const teacher = await User.findById(req.session.user_id);
+    console.log(teacher);
     const quiz = new Quiz({
         topic ,
         game : 'space invaders',
