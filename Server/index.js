@@ -15,8 +15,6 @@ const userRoutes=require('./routes/user-routes');
 const gameRoutes=require('./routes/games')
 const dashboardRoutes=require('./routes/dashboard');
 
-
-
 const path = require('path');
 //const User = require('./models/user');
 const Quiz = require('./models/quiz');
@@ -26,6 +24,13 @@ const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const connectDB =require('./database/connection');
 //const { use } = require('../../../MLH/HTF/Server/routes/twilio-sms');
+
+app.use(session({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: 1000*60*60*24 },
+    resave: false
+}));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -40,25 +45,12 @@ app.set('views',[path.join(__dirname, 'views'),
 
 app.set('view engine', 'ejs');
 
-
-
-
-// app.get('/', () => {
-// console.log("App Demo");
-// })
 app.post('/twilio-sms/send-otp',(req,res)=>{
     app.use(twilioRouter);
     console.log("Send SMS");
 })
 
-
-
-
-
-
 //mongo connection
-
-
 connectDB();
 
 //login required
@@ -75,6 +67,7 @@ app.get('/',(req,res)=>{
     res.render('index2.ejs');
 });
 
+
 //------------------------------------------------
 
 //register and login
@@ -85,9 +78,13 @@ app.get('/login',(req,res)=>{
 	res.render('login.ejs')
 })
 
-app.post('/login', async (req, res) => {
-    app.use(userRoutes);
+app.get('/verify',(req,res)=>{
+    res.render('verify.ejs');
 })
+
+app.post('/login',userRoutes)
+
+app.post('/verify',userRoutes)
 
 app.get('/logout', (req, res) => {
     req.session.user_id = null;
@@ -103,9 +100,7 @@ app.get('/create/dino',(req,res)=>{
     res.render('createDino.ejs');
 })
 
-app.post('/create/dino',async(req,res)=>{
-    app.use(gameRoutes);
-})
+app.post('/create/dino',gameRoutes);
 //-----------------
 // create quiz coinscrapper
 
@@ -113,9 +108,7 @@ app.get('/create/coinscrapper',(req,res)=>{
     res.render('createCoin.ejs');
 })
 
-app.post('/create/coinscrapper',async(req,res)=>{
-    app.use(gameRoutes);
-})
+app.post('/create/coinscrapper',gameRoutes);
 
 //---------------------
 //create quiz space
@@ -124,15 +117,11 @@ app.get('/create/space',(req,res)=>{
     res.render('createSpace.ejs');
 })
 
-app.post('/create/space',async(req,res)=>{
-    app.use(gameRoutes);
-})
+app.post('/create/space',gameRoutes);
 
 //----
 //create quiz doodle
-app.post('/create/doodle',async(req,res)=>{
-    app.use(gameRoutes);
-})
+app.post('/create/doodle',gameRoutes);
 
 app.get('/create/doodle',(req,res)=>{
     res.render('createDoodle.ejs');
@@ -151,15 +140,11 @@ app.get('/dino',async(req,res)=>{
 //-----------------------------------------------
 //space
 
-app.get('/space',async(req,res)=>{
-	app.use(gameRoutes);
-});
+app.get('/space',gameRoutes);
 //----------------------------------------------
 //coinscrapper
 
-app.get('/coinscrapper',async(req,res)=>{
-    app.use(gameRoutes);
-});
+app.get('/coinscrapper',gameRoutes);
 
 //doodle fun
 //----
@@ -189,9 +174,7 @@ app.get('/student/educational-games',(req,res)=>{
 	res.render('educational-games_stud.ejs');
 });
 
-app.post('/student/educational-games',async(req,res)=>{
-   app.use(dashboardRoutes);
-});
+//app.post('/student/educational-games',dashboardRoutes);
 
 //-----
 
@@ -220,9 +203,7 @@ app.get('/student/analytics',async(req,res)=>{
 //--------------------------------------------
 //save score
 //-----------------
-app.post('/check', async(req,res) => {
-  app.use(dashboardRoutes)
-})
+//app.post('/check', dashboardRoutes);
 //---------------------------------------
 
 //leaderboard

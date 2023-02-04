@@ -50,8 +50,9 @@ exports.create=async(req,res)=>{
         channel: "sms",
         });
 		
-        res.status(200).send(`OTP send successfully!: ${JSON.stringify(otpResponse)}`);
-		res.send("User Registered")
+        //res.status(200).send(`OTP send successfully!: ${JSON.stringify(otpResponse)}`);
+		//res.send("User Registered")
+		res.redirect('/verify');
     }
     catch(err){
 		console.log(err);
@@ -67,12 +68,13 @@ exports.login=async(req,res)=>
 			return res.status(400).send("Email and password both required")
 		}
 		const user=await User.findOne({email});
+		console.log(user);
 		const validPassword=await bcrypt.compare(password,user.password);
 		if(validPassword){
 			req.session.user_id=user._id;
 			if(user.role=='student'){
 				req.session.valid=user.name;
-				res.redirect('/student/dashboard');
+				res.redirect('/student/analytics');
 			}
 			else{
 				res.redirect('/teacher/dashboard');
@@ -87,4 +89,31 @@ exports.login=async(req,res)=>
 	catch(err){
 		console.log(err);
 	}
+}
+
+exports.verify=async(req, res)=>{
+	console.log("OTP Verification");
+	session=req.session;
+    const {otp,phoneNumber,countryCode} = req.body;
+	console.log(otp);
+	// const user_id = req.session.user._id;
+	// console.log(user_id)
+	//const phoneNumber=req.session.phoneNumber;
+	//const countryCode=req.session.countryCode;
+	
+	console.log(phoneNumber);
+	console.log(countryCode);
+
+    try{
+        const verifiedResponse = await client.verify
+        .services (TWILIO_SERVICE_SID)
+        .verificationChecks.create({
+        to:`+${countryCode}${phoneNumber}`,
+        code: otp,
+        }) 
+    //res.status(208).send(`OTP verified successfully!: ${JSON.stringify(verifiedResponse)}` ); 
+	res.redirect('/login')
+    }catch(error) {
+        res.status(error?.status || 408).send(error?.message || 'Something went wrong!');
+    }
 }
