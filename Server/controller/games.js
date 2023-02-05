@@ -1,5 +1,6 @@
 //create game Logic
-const Quiz = require('../models/quiz');
+const Quiz=require('../models/quiz');
+const User=require('../models/user')
 //Create Dino
 exports.createDino=async(req,res)=>{
     const {topic,question,answer} = req.body;
@@ -41,7 +42,11 @@ exports.createCoinscrapper=async(req,res)=>{
 exports.createSpace=async(req,res)=>{
     const {topic,question,option,answer} = req.body;
     let gcode = Math.floor(100000 + Math.random() * 900000).toString();
+    //const teacher=await User.findById(req.email);
+    //const user=await User.findOne({reqemail});
+
     const teacher = await User.findById(req.session.user_id);
+
     console.log(teacher);
     const quiz = new Quiz({
         topic ,
@@ -84,8 +89,8 @@ exports.dino=async(req,res)=>{
     let code = req.session.gamecode;
     if (code != null){
         req.session.gamecode = null;
-        const quiz = await Quiz.findOne({ code });
-        console.log(quiz);
+        const quiz = await Quiz.findOne({code});
+        //console.log(quiz);
         res.render('games/dino.ejs',{question : quiz.question , answer: quiz.answer ,trial : false, code:quiz.code});
     }else{
         res.render('games/dino.ejs',{question : [] , answer: [] , trial : true, code:-1})

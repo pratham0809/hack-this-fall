@@ -2,7 +2,7 @@ const express =require('express');
 // const userController=require("../controller/user-controller")
 
 const router =express.Router();
-
+const Quiz=require('../models/quiz');
 const gameController=require('../controller/games');
 
 //api routes
@@ -13,6 +13,7 @@ router.post('/create/space',gameController.createSpace);
 router.post('/create/doodle',gameController.createDoodle);
 
 router.get('/dino',async(req,res)=>{
+    console.log("Dino");
     let code = req.session.gamecode;
     if (code != null){
         req.session.gamecode = null;
@@ -30,6 +31,7 @@ router.get('/space',async(req,res)=>{
         req.session.gamecode = null;
         const quiz = await Quiz.findOne({ code });
         console.log(quiz);
+
         res.render('games/space.ejs',{question : quiz.question , answer: quiz.answer ,
             option: quiz.option ,trial : false, code:code});
     }else{
@@ -41,7 +43,7 @@ router.get('/coinscrapper',async(req,res)=>{
     let code = req.session.gamecode;
     if (code != null){
         req.session.gamecode = null;
-        const quiz = await Quiz.findOne({ code });
+        const quiz = await Quiz.findOne({code});
         console.log(quiz);
         res.render('games/coinscrapper.ejs',{question : quiz.question , answer: quiz.answer ,trial : false, code: quiz.code});
     }else{

@@ -9,7 +9,6 @@
         <link rel="stylesheet" type="text/css" href="dino.css">
     </head>
 
-
     <body>
         <p id="letter"><span id="quesSpan"></span></p>
         <div id="board">
@@ -29,7 +28,7 @@
         let dino = document.getElementById("dino");
         let meteor = document.getElementById("meteor");
         let counter = count = temp = dino_count = 0;
-        let trial = <%= trial %>;
+        var trial = <%= trial %>;
 
         if (!trial){
             let questions =  <%-JSON.stringify(question) %>;
@@ -40,17 +39,19 @@
         }
 
         try{
-            let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            let recognition = new SpeechRecognition();
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            var recognition = new SpeechRecognition();
+            
+            
         } catch(e){
             console.error(e);
             $('.no-browser-support').show();
             $('.app').hide();
         }
-
+       
         recognition.continuous = true;
         recognition.start();
-
+        
         if (temp===0){
             document.getElementById("quesSpan").innerHTML = questions[0]
         }
@@ -80,7 +81,7 @@
             gameover.style.display = "block";
             if (dino_count == 1){
                 score = document.getElementById('scoreSpan').innerHTML
-                let code = <%= code %>
+                let code = <%= code %>;
                 code = code.toString();
                 submitScore(score, code);
             }
@@ -135,7 +136,10 @@
               console.log(transcript)
             }
         }
+        
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+    
 
 </html>
