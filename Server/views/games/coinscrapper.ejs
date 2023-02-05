@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Little Platformer</title>
+    <title>Coin Scrapper</title>
 
 </head>
-<body>
-    <div id="SplashScreen" style="border:1px solid #000; width: 1000px; height: 600px;
+<body style="background-image: linear-gradient(#0a3448,#0a344878); height: 100vh;">
+
+    
+
+    
+    <h1 style="color: rgba(240, 248, 255, 0.555); text-align: center; font-size: 35px;">Coinscrapper</h1>
+    <div id="SplashScreen" style="margin: auto;border:1px solid #000; width: 1000px; height: 600px;
                 background-image: url('images/background_sprite1.png'); background-size: 1000px 600px;">
         <div align="center" style = "margin-top:100px; margin-right: 100px; margin-left: 100px;">
-            <h1>Coinscrapper</h1>
 
-            <h2>Instructions</h2>
+            
             <hr>
-            <h3>Arrow buttons (or W,A,D) to move and jump </h3>
-            <h3>Spacebar to shoot</h3>
-            <h3>Collect all coins to unlock the exit for next level</h3>
+            <div style="background-color: #0a3448b3; width:max-content; padding: 10px; color: aliceblue; margin-top: 50px; border-radius: 15px;">    
+                <h3 style="margin-left: 0px;">Arrow buttons (or W,A,D) to move and jump </h3>
+                <h3 style="margin-left: 0px;">Spacebar to shoot</h3>
+                <h3 style="margin-left: 0px;">Collect all coins to unlock the exit for next level</h3>
+            </div>
 
            <!--  <input type="text" id="playerName" placeholder="Enter your name here" onkeyup="enableStartButton()" />
             <input disabled id="StartButton" type="button" value="Start" onclick="startGame()" /> -->
-            <input id="StartButton" type="button" value="Start" onclick="startGame()" />
+            <input style="padding: 10px 80px; margin-top: 20px; background-color: #0a3448e5; color: #f8e0b0; font-size: 20px; border: none;" id="StartButton" type="button" value="START" onclick="startGame()" />
         </div>
     </div>
 <div id="ansbox" style="width: 1000px;padding-left: 0;
@@ -29,20 +35,17 @@
 </div>
 
 
-<canvas id="canvas" style="border:1px solid #000;padding-left: 0;
+<canvas id="canvas" style="display: none; border:1px solid #fff;padding-left: 0;
     padding-right: 0;
     margin-left: auto;
-    margin-right: auto;
-    display: block;"></canvas>
+    margin-right: auto;"></canvas>
 
 <div>
-    <input id="RestartButton" type="button" value = "Play again!" onclick="restartGame()" style="position: absolute; left:370px; top:500px;display:none" />
+    <input id="RestartButton" type="button" value = "Play again!" onclick="restartGame()" style="position: absolute; left:370px; top:500px;display:none; padding: 10px 80px; background-color: #ffffffd5; color: #242424; font-size: 20px; border: none;" />
+    
 </div>
 <script>
-// All of our JavaScript will go here.
-// function enableStartButton() {
-//     document.getElementById("StartButton").disabled = false;
-// }
+
 function restartGame() {
     document.getElementById("RestartButton").style.display = "none";
     givenTime = 100;
@@ -583,7 +586,7 @@ var coin_count = 0;
 function drawGameOverScreen() {
     coin_count += 1;
     console.log(coin_count);
-    ctx.fillStyle = "rgba(0, 0, 200, 0.7)";
+    ctx.fillStyle = "#0a3448b7";
     ctx.fillRect(50, 50, gameWidth-100, height-100);
     ctx.fillStyle = "white";
     ctx.font = "100px Arial";

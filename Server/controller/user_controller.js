@@ -68,23 +68,24 @@ exports.login=async(req,res)=>
 			return res.status(400).send("Email and password both required")
 		}
 		const user=await User.findOne({email});
-		console.log(user);
+		//console.log(user);
 		const validPassword=await bcrypt.compare(password,user.password);
 		if(validPassword){
 			req.session.user_id=user._id;
+			console.log(req.session.user_id);
 			if(user.role=='student'){
 				req.session.valid=user.name;
 				res.redirect('/student/analytics');
 			}
 			else{
-				res.redirect('/teacher/dashboard');
+				res.redirect('/teacher/analytics');
 			}
 
 			//return res.json({ status: 'ok', data: token })
 
             //res.redirect('/');
 		}
-		res.status(400).send("Invalid Credentials");
+		//res.status(400).send("Invalid Credentials");
 	}
 	catch(err){
 		console.log(err);

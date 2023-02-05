@@ -27,9 +27,6 @@ const connectDB =require('./database/connection');
 
 app.use(session({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-    saveUninitialized:true,
-    cookie: { maxAge: 1000*60*60*24 },
-    resave: false
 }));
 
 app.use(express.urlencoded({ extended: true }));
@@ -133,10 +130,7 @@ app.get('/create/doodle',(req,res)=>{
 //games start
 //dino
 
-app.get('/dino',async(req,res)=>{
-    app.use(gameRoutes);
-});
-
+app.get('/dino',gameRoutes);
 //-----------------------------------------------
 //space
 
@@ -166,6 +160,10 @@ app.get('/teacher/dashboard',requireLogin,(req,res)=>{
     res.render('dashboard_teacher.ejs');
 });
 
+app.get('/aboutus',(req,res)=>{
+    res.render('aboutUs.ejs');
+});
+
 //--------------------------------------------------------------
 //educational games
 
@@ -174,7 +172,24 @@ app.get('/student/educational-games',(req,res)=>{
 	res.render('educational-games_stud.ejs');
 });
 
-//app.post('/student/educational-games',dashboardRoutes);
+app.post('/student/educational-games',async(req,res)=>{
+    const {code} = req.body;
+    console.log({code});
+    const quiz = await Quiz.findOne({ code });
+    console.log(quiz);
+    req.session.gamecode = quiz.code;
+
+    if (quiz.game == 'coinscrapper'){
+        res.redirect('/coinscrapper')
+    }else if (quiz.game == 'space invaders') {
+        res.redirect('/space')
+    }else if (quiz.game == 'dinosaur adventures'){
+        res.redirect('/dino')
+    }else if (quiz.game == 'Doodle Fun'){
+        res.redirect('/doodle')
+    }
+})
+
 
 //-----
 
@@ -203,7 +218,22 @@ app.get('/student/analytics',async(req,res)=>{
 //--------------------------------------------
 //save score
 //-----------------
-//app.post('/check', dashboardRoutes);
+app.post('/check',async(req,res) => {
+    const {score, game_id} = req.body;
+    const quiz = await Quiz.findOne({ game_id });
+    const player = await User.findById(req.session.user_id);
+    console.log(player)
+    const result = new Result({
+      game_id,
+      player_id: req.session.user_id,
+      score,
+      player_name: player.name,
+      teacher_name : quiz.teacher,
+      game_name : quiz.game,
+      game_topic : quiz.topic
+    });
+    result.save();
+  });
 //---------------------------------------
 
 //leaderboard

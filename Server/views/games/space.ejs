@@ -124,7 +124,7 @@
             <div id="gameover" style="display: none;margin-left: auto;margin-right: auto; background-color: yellow;text-align: center;">
                 <h1 >GAME OVER</h1>
                 <a href="/student/educational-games"><button class="btn btn-primary" style="margin: 10px;">
-                    Back to games</button>
+                    Back to dashboard</button>
                 </a>
             </div>
     
@@ -149,17 +149,17 @@
         
         let trial = <%= trial %>;
         if ( trial == false){
-            let questions =  <%-JSON.stringify(question) %>;
-            let answers = <%-JSON.stringify(answer) %>;
-            let options = <%-JSON.stringify(option) %>;
+            var questions =  <%-JSON.stringify(question) %>;
+            var answers = <%-JSON.stringify(answer) %>;
+             options = <%-JSON.stringify(option) %>;
         }else{
-          let questions = ["What is the full form of RAM ?",
+          var questions = ["What is the full form of RAM ?",
             "The ALU makes use of what to store intermediate results?",
             "How many layers are present in the TCP/IP model?",
             "Physical or logical arrangement of network is called?",
             "Key used to represent relationships between tables is called?"];
         
-            let answers = ["Random Access Memory","Accumulators","5","Topology","Foreign Key","Instruction cycle",];
+            var answers = ["Random Access Memory","Accumulators","5","Topology","Foreign Key","Instruction cycle",];
             options  = ["Random Access Memory","Randomely Access Memory","Run Accept Memory","None of these",
                   "Registers","Accumulators", "Stack", "Heap",
                   "10","7","5", "None of these",
@@ -168,10 +168,6 @@
                   "Write cycles","Timing cycle","Machine cycle", "Instruction cycle"]
         
         }
-        
-        
-        
-        
         
         window.addEventListener("keydown", (e) => {
           let left = parseInt(window.getComputedStyle(player).getPropertyValue("left"));
@@ -229,12 +225,10 @@
         
                         if (i==ans){
                             console.log('right')
-                            document.getElementById("points").innerHTML =
-                            parseInt(document.getElementById("points").innerHTML) + 10;
+                            document.getElementById("points").innerHTML = parseInt(document.getElementById("points").innerHTML) + 10;
                         }else{
                           console.log('wrong')
-                          document.getElementById("points").innerHTML =
-                      parseInt(document.getElementById("points").innerHTML) - 5;
+                          document.getElementById("points").innerHTML = parseInt(document.getElementById("points").innerHTML) - 5;
                         }
                         let co = document.createElement("div");
                         co.setAttribute("id", col);
@@ -251,8 +245,7 @@
               }
         
         
-                let bulletbottom = parseInt(
-                window.getComputedStyle(bullet).getPropertyValue("bottom")
+                let bulletbottom = parseInt(window.getComputedStyle(bullet).getPropertyValue("bottom")
               );
         
         
@@ -356,6 +349,7 @@
         function show() {
         
           let question = document.getElementById("question");
+          console.log(question);
         
           if (questions[count]!=undefined){
         
