@@ -1,5 +1,11 @@
 # KnowledgeKnights
 
+## ApyHub Integration Demo for KnowledgeKnights
+
+
+
+https://user-images.githubusercontent.com/89217455/217035902-8df9bb38-3f5c-4b62-a7ff-ee841dd41770.mp4
+
 # Summary
 
 - [Inspiration](#inspiration)
