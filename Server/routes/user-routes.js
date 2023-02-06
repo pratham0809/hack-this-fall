@@ -12,5 +12,8 @@ const { sendOTP, verifyOTP}=require('../controller/twilio-sms.js')
 router.post('/register',userController.create)
 router.post('/login',userController.login)
 router.post('/verify',userController.verify);
+router.post('/vemail',userController.verifyEmail);
+
+
 
 module.exports=router

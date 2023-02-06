@@ -1,6 +1,7 @@
 //const User=require("./model/user")
 const bcrypt=require('bcryptjs')
 const dotenv=require("dotenv");
+const axios = require('axios')
 //dotenv.config({path:'config.env'})\
 require('dotenv').config();
 const User = require("../models/user");
@@ -117,4 +118,35 @@ exports.verify=async(req, res)=>{
     }catch(error) {
         res.status(error?.status || 408).send(error?.message || 'Something went wrong!');
     }
+}
+
+exports.verifyEmail=async(req,res)=>{
+	const{email}=req.body;
+	const oldUser=await User.findOne({email});
+	const DATA = {
+		email: email,
+	  }
+	  const HEADER = {
+		headers: { 
+			"apy-token": 'APT0nfNJgcgR8lhmsjKnwijIJetI42noW6a0A2uU5PMnA5vgneY',
+			"Authorization": 'APY0GgG8JdDfayPLXptIV5Pk1xVt3AZp01BpUdXGYW27zrUcl4SQerDq9s4TV3vww4' 
+		},
+	  }
+	  axios
+		.post('https://api.apyhub.com/validate/email/academic', DATA, HEADER)
+		.then((res) => {
+		  if (res.status === 200) {
+			console.log('Req body:', res.data)
+			oldUser.emailVerify=true;
+			console.log(oldUser);
+			console.log(oldUser.emailVerify);
+			//console.log('Req header :', res.headers)
+			//console.log(email);
+			//res.redirect('/login')
+		  }
+		})
+		.catch((e) => {
+		  console.error(e);
+		})
+		res.redirect('/login')
 }

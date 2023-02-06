@@ -79,9 +79,15 @@ app.get('/verify',(req,res)=>{
     res.render('verify.ejs');
 })
 
+app.get('/vemail',(req,res)=>{
+    res.render('verifyemail.ejs');
+})
+
 app.post('/login',userRoutes)
 
 app.post('/verify',userRoutes)
+
+app.post('/vemail',userRoutes);
 
 app.get('/logout', (req, res) => {
     req.session.user_id = null;
